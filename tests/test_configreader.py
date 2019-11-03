@@ -19,12 +19,6 @@ def test_check_key():
     with pytest.raises(ValueError):
         cfg.check_key("directories", "asdf")
 
-def test_get_db_info():
-    cfg = ConfigReader()
-    # TODO: test after updater done
-    # dbinfo = cfg.get_db_info()
-    # assert dbinfo
-
 def test_get_geoip_dir():
     cfg = ConfigReader()
     geoip_dir = cfg.get_geoip_dir()

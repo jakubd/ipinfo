@@ -1,6 +1,8 @@
 from ipinfo.geoipupdater import GeoIpUpdater
 import os
 
+long_running = False
+
 def test_init():
     gipu = GeoIpUpdater()
     assert gipu
@@ -27,5 +29,6 @@ def test_get_x_db_fn():
     print("done")
 
 def test_update():
-    gipu = GeoIpUpdater()
-    gipu.force_update()
+    if long_running:
+        gipu = GeoIpUpdater()
+        gipu.force_update()

@@ -1,5 +1,3 @@
-# TODO: class that will help keep geoip databases up-to-date
-
 from ipinfo.configreader import ConfigReader
 import os
 import requests

@@ -60,8 +60,5 @@ directories:
             logging.error("Missing key:", key,"in section:", section, "in config file:", self.config_fn)
             raise ValueError
 
-    def get_db_info(self):
-        return self.cfg["database"]
-
     def get_geoip_dir(self):
         return self.cfg["directories"]["geoip_dir"]
