@@ -15,6 +15,7 @@ setup(
         "IPy",
         "dnspython",
         "PyYAML",
+        "requests"
     ],
     tests_require=[
         "pytest"
