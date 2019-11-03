@@ -108,5 +108,3 @@ def test_ip_details_list():
     assert deetlist[1]["maxmind_country_code"] == "AU"
     assert deetlist[1]["maxmind_country_name"] == "Australia"
 
-    print("done")
-
