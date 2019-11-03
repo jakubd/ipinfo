@@ -5,7 +5,8 @@ and handling IPs and domains as input.
 
 import socket
 from datetime import  datetime
-import configreader
+from .configreader import ConfigReader
+from .geoipupdater import GeoIpUpdater
 import dns.resolver
 import geoip2.database
 import geoip2.errors
@@ -16,7 +17,7 @@ class IpInfo(object):
     This class handles basic information about IPs such as domain to ip, ip to country code, ip to asn.
     """
 
-    config = configreader.ConfigReader()
+    config = ConfigReader()
 
     # geoip stuff
     geoip_database_base_dir = config.get_geoip_dir()
@@ -41,15 +42,16 @@ class IpInfo(object):
         """initializes an IPInfo object and points to correct databases."""
 
         # geoip stuff
+        self.geo = GeoIpUpdater()
 
-        self._geoip_country_reader = geoip2.database.Reader(self.geoip_database_base_dir + self.country_db_filename)
+        self._geoip_country_reader = geoip2.database.Reader(self.geo.get_country_db_fn())
         self.geoip_country_database_name = self._geoip_country_reader.metadata().database_type \
-                                           + ' ' \
+                                           + '_' \
                                            + str(self._geoip_country_reader.metadata().build_epoch)
 
-        self._geoip_asn_reader = geoip2.database.Reader(self.geoip_database_base_dir + self.asn_db_filename)
+        self._geoip_asn_reader = geoip2.database.Reader(self.geo.get_asn_db_fn())
         self.geoip_asn_database_name = self._geoip_asn_reader.metadata().database_type \
-                                           + ' ' \
+                                           + '_' \
                                            + str(self._geoip_country_reader.metadata().build_epoch)
 
     @staticmethod
@@ -75,6 +77,9 @@ class IpInfo(object):
         - :param given_ip: the ip you are checking
         - :return: Boolean if ip is in private subnet.
         """
+        if given_ip == "127.0.0.1":
+            return True
+
         return self.is_ip_valid(given_ip) and (IP(given_ip).iptype() == "PRIVATE")
 
     def ip_to_country_code(self, given_ip):

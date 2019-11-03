@@ -1,38 +1,40 @@
-#
+from ipinfo import IpInfo
 
-number_of_cols_in_ip_info = 12
+def test_ipinfo_init():
+    ii = IpInfo()
+    assert ii
 
-# def test_ipinfo_init():
-#     ii = IpInfo()
-#     assert True
-#
-# def test_ipinfo_is_ip_valid():
-#     ii = IpInfo()
-#     assert True
-#
-# def test_ipinfo_get_meta():
-#     ii = IpInfo()
-#     meta_str = ii.get_meta()
-#     assert len(meta_str) == 55
-#     assert meta_str.startswith("GeoLite2-ASN-")
-#     print("\nusing database: %s\n" % meta_str)
-#
-# def test_ipinfo_is_ip_private():
-#     ii = IpInfo()
-#     assert ii.is_ip_private("127.0.0.1")
-#     assert not ii.is_ip_private("8.8.8.8")
-#     assert not ii.is_ip_private("asfdasfd")
-#
-# def test_ip_to_country_code():
-#     assert True
-#
-#
-# def test_ip_to_country_name():
-#     ii = IpInfo()
-#     assert True
-#
-# def test_domain_to_ip():
-#     ii = IpInfo()
+def test_ipinfo_is_ip_valid():
+    ii = IpInfo()
+    assert ii.is_ip_valid(1)
+    assert ii.is_ip_valid("127.0.0.1")
+    assert ii.is_ip_valid("8.8.8.8")
+    assert not ii.is_ip_valid("s")
+
+def test_ipinfo_get_meta():
+    ii = IpInfo()
+    meta_str = ii.get_meta()
+    assert len(meta_str) == 55
+    assert meta_str.startswith("GeoLite2-ASN_")
+
+def test_ipinfo_is_ip_private():
+    ii = IpInfo()
+    assert ii.is_ip_private("127.0.0.1")
+    assert not ii.is_ip_private("8.8.8.8")
+    assert not ii.is_ip_private("asfdasfd")
+
+def test_ip_to_country_code():
+    ii = IpInfo()
+    assert ii.ip_to_country_code("8.8.8.8") == "US"
+    assert ii.ip_to_country_code("2.57.168.0") == "CA"
+
+def test_ip_to_country_name():
+    ii = IpInfo()
+    assert ii.ip_to_country_name("8.8.8.8") == "United States"
+    assert ii.ip_to_country_name("2.57.168.0") == "Canada"
+
+def test_domain_to_ip():
+    ii = IpInfo()
 #
 # def test_domain_to_ip_full():
 #     ii = IpInfo()
