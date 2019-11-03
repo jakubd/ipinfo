@@ -291,7 +291,7 @@ class IpInfo(object):
         Similar to domain_to_ip() function except will return multiple address as well.
 
         - :param given_domain: domain you want to resolve as a string
-        - :return: ip as a string, comma delimited if more than one.
+        - :return: ip as a list
         """
         ip_list = []
 
@@ -304,7 +304,11 @@ class IpInfo(object):
         except dns.resolver.NoAnswer:
             ip_list.append("NoAnswer")
 
-        return ', '.join(ip_list)
+        return ip_list
+
+    def domain_to_ip_full_str(self, given_domain):
+        iplist = self.domain_to_ip_full_str(given_domain)
+        return ", ".join(iplist)
 
     def get_meta(self):
         """
