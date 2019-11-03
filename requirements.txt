@@ -2,3 +2,4 @@ geoip2
 IPy
 dnspython
 PyYAML
+pytest
