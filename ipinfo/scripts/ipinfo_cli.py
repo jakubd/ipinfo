@@ -3,20 +3,39 @@ import ipinfo
 
 ii = ipinfo.IpInfo()
 
-for this_std_in_line in sys.stdin:
+view = "full"
+show_headers = True
+
+full_headers = ["input", "ip", "domain", "rdns", "asn_name", "asn_num", "cc", "country"]
+def get_full(d):
+    return [d["given_input"], d["ip"], d["domain"], d["reverse_dns"], d["maxmind_asn_name"],
+            d["maxmind_asn_num"], d["maxmind_country_code"], d["maxmind_country_name"]]
+
+
+compact_headers = ["ip","asn_name", "asn_num", "cc"]
+def get_compact(d):
+    return [d["ip"], d["maxmind_asn_name"], d["maxmind_asn_num"],d["maxmind_country_code"]]
+
+
+first_row = True
+output_target = sys.stdin
+
+for this_std_in_line in output_target:
     this_std_in_line = this_std_in_line.rstrip("\n")
     details = ii.ip_details(this_std_in_line)
 
-    full = [details["given_input"],
-            details["ip"], details["domain"], details["reverse_dns"],
-            details["maxmind_asn_name"], details["maxmind_asn_num"],
-            details["maxmind_country_code"], details["maxmind_country_name"]]
-
-    compact = [details["ip"], details["maxmind_asn_name"], details["maxmind_asn_num"],
-               details["maxmind_country_code"]]
-
-    print(full)
-    print(compact)
+    if view == "full":
+        if first_row and show_headers:
+            first_row = False
+            print(full_headers)
+        full = get_full(details)
+        print(full)
+    elif view == "compact":
+        if first_row and show_headers:
+            first_row = False
+            print(compact_headers)
+        compact = get_compact(details)
+        print(compact)
 
 def stub():
     pass
