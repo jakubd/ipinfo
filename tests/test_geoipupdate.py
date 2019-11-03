@@ -18,9 +18,13 @@ def test_download_file():
     assert os.path.isfile("/tmp/favicon.ico")
     os.remove("/tmp/favicon.ico")
 
-def test_untar_file():
+def test_get_x_db_fn():
     gipu = GeoIpUpdater()
-    gipu.untar_mmdb("/var/lib/GeoIP/GeoLite2-ASN.tar.gz")
+    dbfn = gipu.get_country_db_fn()
+    assert dbfn == '/var/lib/GeoIP/GeoLite2-Country.mmdb'
+    asnfn = gipu.get_asn_db_fn()
+    assert asnfn == '/var/lib/GeoIP/GeoLite2-ASN.mmdb'
+    print("done")
 
 def test_update():
     gipu = GeoIpUpdater()
