@@ -5,7 +5,7 @@ and handling IPs and domains as input.
 
 import socket
 from datetime import  datetime
-from configreader import ConfigReader
+import configreader
 import dns.resolver
 import geoip2.database
 import geoip2.errors
@@ -16,7 +16,7 @@ class IpInfo(object):
     This class handles basic information about IPs such as domain to ip, ip to country code, ip to asn.
     """
 
-    config = ConfigReader()
+    config = configreader.ConfigReader()
 
     # geoip stuff
     geoip_database_base_dir = config.get_geoip_dir()

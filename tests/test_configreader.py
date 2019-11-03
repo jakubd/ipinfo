@@ -1,4 +1,4 @@
-from ipinfo import ConfigReader
+from ipinfo.configreader import ConfigReader
 import pytest
 
 def test_init():
