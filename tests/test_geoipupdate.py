@@ -24,4 +24,4 @@ def test_untar_file():
 
 def test_update():
     gipu = GeoIpUpdater()
-    # gipu.update()
+    gipu.force_update()

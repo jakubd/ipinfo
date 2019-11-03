@@ -19,10 +19,22 @@ class GeoIpUpdater:
 
     def untar_mmdb(self, given_fn):
         tar = tarfile.open(given_fn, "r:gz")
-        fn = [m.name for m in tar.getmembers() if m.name.endswith(".mmdb")][0]
-        f = open(os.path.join(self.geoip_dir, self.MAXMIND_ASN_FN), "wb")
+        members = [m.name for m in tar.getmembers() if m.name.endswith(".mmdb")]
+        if len(members) == 0:
+            raise FileNotFoundError
+        fn = members[0]
+
+        if given_fn.find("ASN") > 0:
+            unzipped_fn = self.MAXMIND_ASN_FN
+        elif given_fn.find("Country") > 0:
+            unzipped_fn = self.MAXMIND_COUNTRY_FN
+        else:
+            raise ValueError
+
+        f = open(os.path.join(self.geoip_dir, unzipped_fn), "wb")
         for buf in tar.extractfile(fn):
             f.write(buf)
+
         f.close()
         tar.close()
 
@@ -38,12 +50,22 @@ class GeoIpUpdater:
         r = requests.get(given_url)
         open(os.path.join(dest_dir, dest_fn), 'wb').write(r.content)
 
-    def update(self):
-        if not self.check_if_file_exists(os.path.join(self.geoip_dir, self.MAXMIND_COUNTRY_FN)):
-            self.download_file(self.MAXMIND_COUNTRY_URL, dest_dir=self.geoip_dir)
+    def update_detailed(self, given_db_fn, given_db_url, given_zipped_fn):
+        if not self.check_if_file_exists(os.path.join(self.geoip_dir, given_db_fn)):
+            self.download_file(given_db_url, dest_dir=self.geoip_dir)
+            zipped_fn_country = os.path.join(self.geoip_dir, given_zipped_fn)
+            self.untar_mmdb(zipped_fn_country)
+            os.remove(zipped_fn_country)
 
-        if not self.check_if_file_exists(os.path.join(self.geoip_dir, self.MAXMIND_ASN_FN)):
-            self.download_file(self.MAXMIND_ASN_URL, dest_dir=self.geoip_dir)
+    def update(self):
+        self.update_detailed(self.MAXMIND_COUNTRY_FN, self.MAXMIND_COUNTRY_URL, "GeoLite2-Country.tar.gz")
+        self.update_detailed(self.MAXMIND_ASN_FN, self.MAXMIND_ASN_URL, "GeoLite2-ASN.tar.gz")
+
+    def force_update(self):
+        os.remove(os.path.join(self.geoip_dir, self.MAXMIND_ASN_FN))
+        os.remove(os.path.join(self.geoip_dir, self.MAXMIND_COUNTRY_FN))
+        self.update_detailed(self.MAXMIND_COUNTRY_FN, self.MAXMIND_COUNTRY_URL, "GeoLite2-Country.tar.gz")
+        self.update_detailed(self.MAXMIND_ASN_FN, self.MAXMIND_ASN_URL, "GeoLite2-ASN.tar.gz")
 
     def check_if_have_complete_db(self):
         if self.check_if_file_exists(os.path.join(self.geoip_dir, self.MAXMIND_COUNTRY_FN)) and \
