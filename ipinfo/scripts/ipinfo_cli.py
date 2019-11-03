@@ -12,9 +12,9 @@ def get_full(d):
             d["maxmind_asn_num"], d["maxmind_country_code"], d["maxmind_country_name"]]
 
 
-compact_headers = ["ip","asn_name", "asn_num", "cc"]
+compact_headers = ["ip", "asn_name", "asn_num", "cc"]
 def get_compact(d):
-    return [d["ip"], d["maxmind_asn_name"], d["maxmind_asn_num"],d["maxmind_country_code"]]
+    return [d["ip"], d["maxmind_asn_name"], d["maxmind_asn_num"], d["maxmind_country_code"]]
 
 
 first_row = True
