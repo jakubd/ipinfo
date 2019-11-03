@@ -1,5 +1,6 @@
 import os
 import yaml
+import logging
 
 class ConfigReader:
 
@@ -33,13 +34,13 @@ directories:
         try:
             f = open(self.config_fn, 'r')
         except IOError:
-            print("No config found at path:", self.config_fn)
+            logging.error("No config found at path:", self.config_fn)
             raise
 
         try:
             self.cfg = yaml.load(f)
         except yaml.YAMLError:
-            print("Error parsing config file at:", self.config_fn)
+            logging.error("Error parsing config file at:", self.config_fn)
             raise
 
         f.close()
@@ -56,7 +57,7 @@ directories:
 
     def check_key(self, section, key):
         if key not in self.cfg[section]:
-            print("Missing key:", key,"in section:", section, "in config file:", self.config_fn)
+            logging.error("Missing key:", key,"in section:", section, "in config file:", self.config_fn)
             raise ValueError
 
     def get_db_info(self):
