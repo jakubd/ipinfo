@@ -3,6 +3,7 @@
 from ipinfo.configreader import ConfigReader
 import os
 import requests
+import tarfile
 
 class GeoIpUpdater:
 
@@ -16,9 +17,17 @@ class GeoIpUpdater:
         self.cfg = ConfigReader()
         self.geoip_dir = self.cfg.get_geoip_dir()
 
+    def untar_mmdb(self, given_fn):
+        tar = tarfile.open(given_fn, "r:gz")
+        fn = [m.name for m in tar.getmembers() if m.name.endswith(".mmdb")][0]
+        f = open(os.path.join(self.geoip_dir, self.MAXMIND_ASN_FN), "wb")
+        for buf in tar.extractfile(fn):
+            f.write(buf)
+        f.close()
+        tar.close()
+
     @staticmethod
     def download_file(given_url, dest_dir=""):
-
         if dest_dir == "":
             dest_dir = os.path.dirname(os.path.realpath(__file__))
 
