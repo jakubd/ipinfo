@@ -38,7 +38,7 @@ directories:
             raise
 
         try:
-            self.cfg = yaml.load(f)
+            self.cfg = yaml.load(f, Loader=yaml.BaseLoader)
         except yaml.YAMLError:
             logging.error("Error parsing config file at:", self.config_fn)
             raise
