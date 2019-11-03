@@ -254,8 +254,7 @@ class IpInfo(object):
         """
         ip = ""
 
-        given_input = given_input.lower()
-
+        given_input = str(given_input).lower().rstrip().lstrip()
         if given_input.startswith("http://") or given_input.startswith("https://"):
             given_input = given_input.replace("http://", "")
             given_input = given_input.replace("https://", "")

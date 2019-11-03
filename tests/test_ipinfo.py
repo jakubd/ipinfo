@@ -62,16 +62,51 @@ def test_ip_to_reverse_dns():
     assert ii.ip_to_reverse_dns("1.1.1.1") == "one.one.one.one"
     assert ii.ip_to_reverse_dns("8.8.8.8") == "dns.google"
 
-# def test_input_to_ip():
-#     ii = IpInfo()
+def test_input_to_ip():
+    ii = IpInfo()
+    g_ip = ii.input_to_ip("dns.google")
+    assert g_ip == "8.8.8.8" or g_ip == "8.8.4.4"
 #
-# def test_input_is_what():
-#     ii = IpInfo()
-#
-# def test_ip_details():
-#     ii = IpInfo()
-#     assert True
-#
-# def test_ip_details_list():
-#     ii = IpInfo()
-#     assert True
+def test_input_is_what():
+    ii = IpInfo()
+    assert ii.input_is_what("8.8.8.8") == "ip"
+    assert ii.input_is_what(" 8.8.8.8 ") == "ip"
+    assert ii.input_is_what("dns.google") == "domain"
+    assert ii.input_is_what("asdfasdf") == "unknown"
+
+def test_ip_details():
+    ii = IpInfo()
+    deets = ii.ip_details("8.8.8.8")
+    assert deets["ip"] == "8.8.8.8"
+    assert deets["input_type"] == "ip"
+    assert deets["reverse_dns"] == "dns.google"
+    assert deets["maxmind_asn_name"] == "Google LLC"
+    assert deets["maxmind_country_code"] == "US"
+    assert deets["maxmind_country_name"] == "United States"
+
+def test_ip_details_list():
+    ii = IpInfo()
+    testlist = [
+        "8.8.8.8",
+        "1.1.1.1"
+    ]
+
+    deetlist = ii.ip_details_list(testlist)
+    assert len(deetlist) == 2
+
+    assert deetlist[0]["ip"] == "8.8.8.8"
+    assert deetlist[0]["input_type"] == "ip"
+    assert deetlist[0]["reverse_dns"] == "dns.google"
+    assert deetlist[0]["maxmind_asn_name"] == "Google LLC"
+    assert deetlist[0]["maxmind_country_code"] == "US"
+    assert deetlist[0]["maxmind_country_name"] == "United States"
+
+    assert deetlist[1]["ip"] == "1.1.1.1"
+    assert deetlist[1]["input_type"] == "ip"
+    assert deetlist[1]["reverse_dns"] == "one.one.one.one"
+    assert deetlist[1]["maxmind_asn_name"] == "Cloudflare, Inc."
+    assert deetlist[1]["maxmind_country_code"] == "AU"
+    assert deetlist[1]["maxmind_country_name"] == "Australia"
+
+    print("done")
+
