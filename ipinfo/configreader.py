@@ -50,9 +50,9 @@ directories:
 
     def check_major_section(self, section):
         if section not in self.cfg:
-            print("Configfile is invalid at:", self.config_fn)
+            logging.error("Configfile is invalid at:", self.config_fn)
             if section:
-                print("Missing section", section)
+                logging.error("Missing section", section)
                 raise ValueError
 
     def check_key(self, section, key):
