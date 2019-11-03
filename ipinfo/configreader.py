@@ -4,18 +4,31 @@ import yaml
 class ConfigReader:
 
     cfg = None
-    cfg_fn = ""
 
     cfg_dirname = ""
 
-    def __init__(self, explicit_config_filename=None):
-        if not explicit_config_filename:
-            self.config_fn = os.path.abspath(
-                os.path.join(os.path.dirname(__file__), '..', 'conf' + os.sep + "ipinfo.yml"))
-        else:
-            self.config_fn = explicit_config_filename
+    DEF_CFG = """
+directories:
+    geoip_dir: /var/lib/GeoIP    
+"""
 
-        self.cfg_dirname = os.path.join(os.path.dirname(__file__), '..', '..', 'conf')
+    def __init__(self, given_explicit_config_filename=None):
+        if not given_explicit_config_filename:
+
+            self.cfg_dirname = os.path.join(os.path.expanduser("~"), ".config", "ipinfo")
+            if not os.path.exists(self.cfg_dirname):
+                os.makedirs(self.cfg_dirname)
+
+            cfg_file_path = os.path.join(self.cfg_dirname, "ipinfo.yml")
+
+            if not os.path.exists(cfg_file_path):
+                with open(cfg_file_path, "a") as f:
+                    f.write(self.DEF_CFG)
+
+            self.config_fn = os.path.join(self.cfg_dirname, "ipinfo.yml")
+
+        else:
+            self.config_fn = given_explicit_config_filename
 
         try:
             f = open(self.config_fn, 'r')
