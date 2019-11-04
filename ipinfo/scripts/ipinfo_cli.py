@@ -6,6 +6,7 @@ import csv
 from tabulate import tabulate
 
 parser = argparse.ArgumentParser()
+###
 parser.add_argument('-ff', '--fields-full', action='store_true', default=False, help="shows all fields in output")
 parser.add_argument('-fc', '--fields-compact', action='store_true', default=True, help="shows minimal fields")
 ###
@@ -28,9 +29,9 @@ def get_full(d):
             d["maxmind_country_code"], d["maxmind_country_name"], d["maxmind_db_used"]]
 
 
-compact_headers = ["ip", "asn_name", "asn_num", "cc"]
+compact_headers = ["ip", "asn_num", "asn_name", "cc"]
 def get_compact(d):
-    return [d["ip"], d["maxmind_asn_name"], d["maxmind_asn_num"], d["maxmind_country_code"]]
+    return [d["ip"], d["maxmind_asn_num"], d["maxmind_asn_name"], d["maxmind_country_code"]]
 
 
 if args.output_table:
@@ -38,6 +39,7 @@ if args.output_table:
 
 first_row = True
 f = None
+
 output_target = sys.stdin
 csv_writer = csv.writer(sys.stdout)
 tabulate_tbl = []
