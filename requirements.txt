@@ -4,3 +4,4 @@ IPy
 dnspython
 PyYAML
 pytest
+tabulate
