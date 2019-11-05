@@ -23,6 +23,10 @@ done!
 It uses the directory `/var/lib/GeoIP` by default because the `geoipupdate` app also uses it.  You can change it
 by editing `~/.config/ipinfo/ipinfo.yml`.
 
+# Supported Platform
+
+Tested on Linux Debian on both Python 2.7 and 3.7.
+
 # Usage
 
 Can pipe input to ipinfo, for quick minimal info.
