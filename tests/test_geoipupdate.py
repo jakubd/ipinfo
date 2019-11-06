@@ -6,7 +6,7 @@ long_running = False
 def test_init():
     gipu = GeoIpUpdater()
     assert gipu
-    assert gipu.geoip_dir == "/var/lib/GeoIP"
+    assert gipu.geoip_dir == os.path.join(os.path.expanduser("~"), ".config", "ipinfo")
 
 def test_check_if_file_exists():
     gipu = GeoIpUpdater()
@@ -23,9 +23,9 @@ def test_download_file():
 def test_get_x_db_fn():
     gipu = GeoIpUpdater()
     dbfn = gipu.get_country_db_fn()
-    assert dbfn == '/var/lib/GeoIP/GeoLite2-Country.mmdb'
+    assert dbfn == os.path.join(os.path.expanduser("~"), ".config", "ipinfo", "GeoLite2-Country.mmdb")
     asnfn = gipu.get_asn_db_fn()
-    assert asnfn == '/var/lib/GeoIP/GeoLite2-ASN.mmdb'
+    assert asnfn == os.path.join(os.path.expanduser("~"), ".config", "ipinfo", "GeoLite2-ASN.mmdb")
     print("done")
 
 def test_update():

@@ -1,8 +1,11 @@
 # ipinfo
 
 A light wrapper for performing Maxmind GeoIP lookups from local databases that will retreive country
-and ASN information in the CLI. Takes care of keeping the databases up-to-date but can also work
-with `geoipupdate` and manually selected databases.
+and ASN information in the CLI. Takes care of keeping the databases up-to-date.
+
+# Supported Platform
+
+Tested on Linux Debian on both Python 2.7 and 3.7.  Need to have pip installed such as via `python3-pip` package. 
 
 # Installation
 
@@ -20,13 +23,9 @@ updating geoip databases to directory: ~/.config/ipinfo/
 done!
 ```
 
-By default it stores because the database in your home folder `~/.config/ipinfo`.  You can change it
-by editing `~/.config/ipinfo/ipinfo.yml`.  For example if you want it to work system-wide or be updated
-with `geoipupdate` instead.
-
-# Supported Platform
-
-Tested on Linux Debian on both Python 2.7 and 3.7.  Need to have pip installed such as via `python3-pip` package. 
+By default it stores because the Maxmind database files in your home config folder: `~/.config/ipinfo`.  
+You can change this by editing `~/.config/ipinfo/ipinfo.yml`.  For example if you want it to work system-wide 
+or be updated with `geoipupdate` instead you can change this value to `/var/lib/GeoIP`
 
 # Usage
 
