@@ -1,7 +1,13 @@
 from ipinfo.configreader import ConfigReader
 import pytest
+import os
 
 def test_init():
+    cfg = ConfigReader()
+    assert cfg
+
+def test_init_fresh():
+    os.remove(os.path.join(os.path.expanduser("~"), ".config", "ipinfo", "ipinfo.yml"))
     cfg = ConfigReader()
     assert cfg
 
@@ -22,4 +28,4 @@ def test_check_key():
 def test_get_geoip_dir():
     cfg = ConfigReader()
     geoip_dir = cfg.get_geoip_dir()
-    assert geoip_dir == "/var/lib/GeoIP"
+    assert geoip_dir == os.path.join(os.path.expanduser("~"), ".config", "ipinfo")

@@ -16,12 +16,13 @@ and it will install into your current virtualenv. You will need to update the Ma
 
 ```bash
 $ ipinfodbupdate 
-updating geoip databases to directory: /var/lib/GeoIP
+updating geoip databases to directory: ~/.config/ipinfo/
 done!
 ```
 
-It uses the directory `/var/lib/GeoIP` by default because the `geoipupdate` app also uses it.  You can change it
-by editing `~/.config/ipinfo/ipinfo.yml`.
+By default it stores because the database in your home folder `~/.config/ipinfo`.  You can change it
+by editing `~/.config/ipinfo/ipinfo.yml`.  For example if you want it to work system-wide or be updated
+with `geoipupdate` instead.
 
 # Supported Platform
 

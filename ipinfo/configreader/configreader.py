@@ -5,13 +5,12 @@ import logging
 class ConfigReader:
 
     cfg = None
-
     cfg_dirname = ""
-
-    DEF_CFG = """
-directories:
-    geoip_dir: /var/lib/GeoIP    
-"""
+    default_dict = {
+        "directories": {
+            "geoip_dir": "/var/lib/GeoIP"
+        }
+    }
 
     def __init__(self, given_explicit_config_filename=None):
         if not given_explicit_config_filename:
@@ -24,7 +23,8 @@ directories:
 
             if not os.path.exists(cfg_file_path):
                 with open(cfg_file_path, "a") as f:
-                    f.write(self.DEF_CFG)
+                    self.default_dict["directories"]["geoip_dir"] = os.path.join(os.path.expanduser("~"), ".config", "ipinfo")
+                    f.write(yaml.dump(self.default_dict))
 
             self.config_fn = os.path.join(self.cfg_dirname, "ipinfo.yml")
 
