@@ -3,9 +3,12 @@
 A light wrapper for performing Maxmind GeoIP lookups from local databases that will retreive country
 and ASN information in the CLI. Takes care of keeping the databases up-to-date.
 
-# Supported Platform
+# Prerequisites
 
-Tested on Linux Debian on both Python 2.7 and 3.7.  Need to have pip installed such as via `python3-pip` package. 
+Tested on Linux Debian on both Python 2.7 and 3.7.  
+
+For those system you only need to have pip installed such as via `python3-pip` package in order
+to install. 
 
 # Installation
 
@@ -15,7 +18,9 @@ Simply run:
 ./install.sh
 ```
 
-and it will install into your current virtualenv. You will need to update the MaxMind database first with
+and it will install into your current virtualenv. 
+
+You will also need to download the MaxMind GeoLite databases first with `ipinfoupdate`:
 
 ```bash
 $ ipinfodbupdate 
