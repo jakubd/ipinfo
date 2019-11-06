@@ -25,7 +25,7 @@ by editing `~/.config/ipinfo/ipinfo.yml`.
 
 # Supported Platform
 
-Tested on Linux Debian on both Python 2.7 and 3.7.
+Tested on Linux Debian on both Python 2.7 and 3.7.  Need to have pip installed such as via `python3-pip` package. 
 
 # Usage
 
