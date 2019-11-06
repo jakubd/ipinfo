@@ -11,7 +11,9 @@ def test_init():
 def test_check_if_file_exists():
     gipu = GeoIpUpdater()
     assert gipu
-    assert gipu.check_if_file_exists("/var/log/auth.log")
+    f = open("delme.txt", "w+")
+    assert gipu.check_if_file_exists("delme.txt")
+    os.remove("delme.txt")
     assert not gipu.check_if_file_exists("/var/log/authasdfasdfasd.log")
 
 def test_download_file():
