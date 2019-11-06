@@ -5,7 +5,7 @@ and ASN information in the CLI. Takes care of keeping the databases up-to-date.
 
 # Prerequisites
 
-Tested on Linux Debian on both Python 2.7 and 3.7.  
+Tested on Debian 9/10 on both Python 2.7 and 3.7.  
 
 For those system you only need to have pip installed such as via `python3-pip` package in order
 to install. 
