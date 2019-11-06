@@ -28,7 +28,7 @@ updating geoip databases to directory: ~/.config/ipinfo/
 done!
 ```
 
-By default it stores because the Maxmind database files in your home config folder: `~/.config/ipinfo`.  
+By default it stores the Maxmind database files in your home config folder: `~/.config/ipinfo`.  
 You can change this by editing `~/.config/ipinfo/ipinfo.yml`.  For example if you want it to work system-wide 
 or be updated with `geoipupdate` instead you can change this value to `/var/lib/GeoIP`
 
