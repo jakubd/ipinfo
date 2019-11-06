@@ -18,7 +18,7 @@ Simply run:
 ./install.sh
 ```
 
-and it will install into your current virtualenv. 
+and it will install into your current virtualenv or python environment. 
 
 You will also need to download the MaxMind GeoLite databases first with `ipinfoupdate`:
 
