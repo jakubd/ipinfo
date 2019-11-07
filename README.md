@@ -1,3 +1,6 @@
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
+
 # ipinfo
 
 A light wrapper for performing Maxmind GeoIP lookups from local databases that will retreive country
