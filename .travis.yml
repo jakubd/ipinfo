@@ -4,8 +4,8 @@ python:
   - "3.7"
 # command to install dependencies
 install:
-  - pip install -r requirements.txt
+  - python -m pip install -e .
   - pip install pytest
-  - python3 ipinfo/scripts/ipinfo_db_update.py
+  - ipinfodbupdate
 script:
   - pytest
