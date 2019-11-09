@@ -90,6 +90,9 @@ class IpInfo(object):
         - :return: Two letter all caps Country code
         """
         fail_response = "ZZ"
+        if not self.is_ip_valid(given_ip) or len(given_ip) < 7:
+            return fail_response
+
         try:
             response = self._geoip_country_reader.country(given_ip)
             if response.country.iso_code:
@@ -106,10 +109,15 @@ class IpInfo(object):
         - :param given_ip: IP address as a string
         - :return: String of country name
         """
+
+        fail_response = ""
+        if not self.is_ip_valid(given_ip) or len(given_ip) < 7:
+            return fail_response
+
         try:
             response = self._geoip_country_reader.country(given_ip)
         except geoip2.errors.AddressNotFoundError:
-            return ""
+            return fail_response
         return response.country.name
 
     def ip_to_asn_num(self, given_ip):
