@@ -21,5 +21,6 @@ setup(
     ],
     tests_require=[
         "pytest"
+        "tox-pyenv"
     ]
 )
