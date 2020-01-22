@@ -1,9 +1,11 @@
 from setuptools import setup
+from setuptools import find_packages
+
 
 setup(
     name="ipinfo",
-    packages=["ipinfo"],
-    version="0.0.2",
+    packages=find_packages(exclude=('tests',)),
+    version="0.0.3",
     entry_points={
         'console_scripts': [
             'ipinfo=ipinfo.scripts.ipinfo_cli:stub',
