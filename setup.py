@@ -5,7 +5,7 @@ from setuptools import find_packages
 setup(
     name="ipinfo",
     packages=["ipinfo", "ipinfo.configreader", "ipinfo.geoipupdater"],
-    version="0.0.3",
+    version="0.0.4",
     entry_points={
         'console_scripts': [
             'ipinfo=ipinfo.scripts.ipinfo_cli:stub',
