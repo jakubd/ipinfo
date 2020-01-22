@@ -4,7 +4,7 @@ from setuptools import find_packages
 
 setup(
     name="ipinfo",
-    packages=find_packages(exclude=('tests',)),
+    packages=["ipinfo", "ipinfo.configreader", "ipinfo.geoipupdater"],
     version="0.0.3",
     entry_points={
         'console_scripts': [
